@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Image Uploading</title>
+</head>
+
+<body>
+	<div id="loading">
+		 <img src="../profile/loading.gif" id="loading-image" alt="Loading..."/>
+</div>
+	<h4 class="text-muted">What's On Your Mind, {{username_auth}}</h1>
+	<div class="page">
+  <div class="page-content">
+	<div class="row">
+	<div class="col-md-2 show_post">
+	<button type = "button" class="btn btn-lg btn-default btn-block" id="post_image_button">More &raquo;</button>
+  </div>
+	<div class="col-md-2 hide_post" style="display:none;">
+	<button type = "button" class="btn btn-lg btn-default btn-block" id="post_image_button">Hide &raquo;</button>
+  </div>
+  </div>
+  </div>
+  </div>
+
+	<div class="jumbotron post_image" style="display:none;">
+		<form class="form-signin" action="/users/dashboard" method="POST" enctype="multipart/form-data">
+			<div class="row">
+				<label for="name" class="text-muted">Title</label>
+				<input type="text" id="name" placeholder="Name" class="form-control"	value="" name="name" required>
+			</div>
+			<div class="row">
+				<label for="desc" class="text-muted">Post Description</label>
+				<textarea id="desc" name="desc" rows="2" class="form-control note" required>
+				</textarea>
+			</div>
+			<div class="row">
+				<label for="image" class="text-muted">Add Image</label>
+				<input type="file" id="image" class="form-control"	name="image" required>
+				<input type="hidden" name="username" id="username" value="{{username_auth}}">
+				<input type="hidden" name="email" id="email" value="{{email_auth}}">
+			</div>
+		</br>
+			<div class="row">
+				<button type="submit" class="btn btn-lg btn-default btn-block">Post</button>
+			</div>
+		</form>
+	</div>
+</br>
+
+{{#if items}}
+ 	<h2 class="text-muted">Developer Discussion Panel!</h2></br>
+{{#each items}}
+<input type = "hidden" value="{{@index}}: {{this}}" id="index" class="index">
+ {{#if file_name}}
+ <h3 class="text-muted btn-warning">Post {{inc @index}}</h3>
+  <div class="jumbotron sort{{@index}}" post-count="{{@index}}" id="sort">
+    <div class="row">
+      <div class="col-lg-3">
+				{{#each ../users}}
+				{{#if picture_name}}
+				{{#ifEquals email ../email}}
+				<h4 class="text-muted">User Picture</h4><h5 style="color:#41B5D8;">&nbsp&nbsp&nbsp
+				  <img style="height:150px;width: 150px;" class="form-control" src="{{http_path}}/profile/{{picture_name}}" alt="Image Data!">
+         {{/ifEquals}}
+				 {{/if}}
+				</h5></br>
+				{{/each}}
+				<h4 class="text-muted">Posted By</h4><h5 style="color:#41B5D8;">&nbsp&nbsp&nbsp{{username}}</h5></br>
+				<h4 class="text-muted">To Contact</h4><h5 style="color:#41B5D8;">&nbsp&nbsp&nbsp{{email}}</h5>
+      </div>
+      <div class="col-lg-5">
+				<h4 class="text-muted">Name</h4><h5 style="color:#39A553;">&nbsp&nbsp&nbsp{{name}}</h5>
+				<h4 class="text-muted">Description</h4><h5 style="color:#39A553;">&nbsp&nbsp&nbsp{{desc}}</h5>
+				<img style="height: 299px;width: 334px;" class="form-control" src="{{http_path}}/uploads/{{file_name}}" alt="Image Data!">
+      </div>
+			<div class="col-lg-4" id="controlContent{{@index}}" class="controlContent">
+      <h4 class="text-muted">Comments Interaction System</h4>
+				<form class="form-signin comments_form" action="/users/dashboard" method="POST" id="comments_form{{@index}}" enctype="multipart/form-data">
+					<input type="hidden" class="id_user" name="id_user" value="{{_id}}">
+					<input type="hidden" class="username" name="username" value="{{username}}">
+					<input type="hidden" class="email" name="email" value="{{email}}">
+					<input type="hidden" class="username_comments" name="username_comments" value="{{../username_auth}}">
+					<input type="hidden" class="email_comments" name="email_comments" value="{{../email_auth}}">
+					<input type="hidden" class="name" name="name" value="{{name}}">
+					<input type="hidden" class="desc" name="desc" value="{{desc}}">
+					<input type="hidden" class="file_name" name="file_name" value="{{file_name}}">
+					<button type="button" class="btn btn-info add_modal"  data-toggle="modal" data-target="#myModal{{@index}}">Add</button> &nbsp &nbsp
+					<button type="button" name="view" id="view{{@index}}" data-attr="{{@index}}" class="btn btn-info view">View Only</button>
+
+
+
+
+   <!-- Modal -->
+   <div class="modal fade" id="myModal{{@index}}" role="dialog">
+     <div class="modal-dialog">
+
+       <!-- Modal content-->
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+           <h4 class="modal-title">Add Comment &nbsp <button type="button" name="add{{@index}}" id="{{@index}}" class="btn btn-info add">+</button></h4>
+         </div>
+         <div class="modal-body" style="margin-left: 34px !important;">
+					 <div class="div_field modal_field" id="modal_field{{@index}}">
+
+
+						 {{#each this}}
+						 {{#if comments}}
+						 {{#each comments}}
+						 <input type = "hidden" value="{{@index}}: {{this}}" id="index_comments" class="index_comments">
+						 <input type = "hidden" value="{{../_id}}" id="post_id_hidden{{@index}}{{../_id}}" name="post_id_hidden" class="post_id_hidden">
+						 <input type = "hidden" value="{{_id}}" id="comments_id_hidden{{@index}}{{../_id}}" name="comments_id_hidden" class="comments_id_hidden">
+						 <input type = "hidden" value="{{comments_name}}" id="comments_name_hidden{{@index}}{{../_id}}" name="comments_name_hidden" class="comments_name_hidden">
+						 <input type = "hidden" value="{{data}}" id="comments_data_hidden{{@index}}{{../_id}}" name="comments_data_hidden" class="comments_data_hidden">
+						 <input type = "hidden" value="{{comments_image_name}}" id="comments_image_name_hidden{{@index}}{{../_id}}" name="comments_image_name_hidden" class="comments_image_name_hidden">
+						 <input type = "hidden" value="{{comments_email}}" id="comments_email_hidden{{@index}}{{../_id}}" name="comments_email_hidden" class="comments_email_hidden">
+
+						 <table class="dynamic_field" id="dynamic_field{{@index}}{{../_id}}">
+						 <tr><td></td></tr>
+						 <tr><td><h4 class="text-muted heading_comment class="form-control><b><u>COMMENT {{inc @index}} </u></b></h4></td></tr>
+						 {{#if comments_image_name}}
+						 <tr><td></br><img style="height:80px;width:90px" class="form-control" src="{{http_path}}/uploads/{{comments_image_name}}" name="image_comments" alt="Image Data!"></td></tr>
+						 {{/if}}
+						 {{#if data}}
+						 <tr><td><textarea class="form-control comments db_update note" value="" readonly>{{data}}</textarea></td></tr>
+						 {{/if}}
+						 <tr><td><h5 class="text-muted">Commented By <span style="color:#41B5D8;">{{comments_name}}</span></h5></td></tr>
+						 <tr><td><h5 class="text-muted"><span style="color:#41B5D8;"><button type="button" name="reply_get{{@index}}{{../_id}}" data-attr="{{@index}}{{../_id}}" id="reply_get{{@index}}{{../_id}}" class="btn btn-info reply_get">Reply</button></span></h5></td></tr>
+
+						 {{#if ../replies}}
+						 {{#each ../replies}}
+						 {{#ifEquals ../_id comments_id}}
+						 <tr class="btn-success reply_row_modal"><td>Replies</td></tr>
+						 {{#if image_response}}
+						 <tr class="reply_row_modal"><td><img class="form-control" style="height:80px;width:90px" src="{{http_path}}/uploads/{{image_response}}" name="image_comments" alt="Image Data!"></td></tr>
+						 {{/if}}
+								 <tr class="reply_row_modal"><td><textarea class="form-control comments db_update note" value="" readonly>{{reply}}</textarea></td></tr>
+								 <tr class="reply_row_modal"><td><h5 class="text-muted" style="margin-left: 59px;">Replied by <span style="color:#41B5D8;">{{name}}</span></h5></td></tr>
+							{{/ifEquals}}
+						 {{/each}}
+						 {{/if}}
+
+						 <tr id="tr{{@index}}{{../_id}}"></tr>
+						 <tr><td><hr/></td></tr>
+             </table>
+						 {{/each}}
+						 {{/if}}
+						 {{/each}}
+					</div>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+       </div>
+
+     </div>
+   </div>
+
+
+	 <div class="div_field" id="div_field{{@index}}">
+	 </br>
+	 <table>
+
+	 	{{#each this}}
+	 	{{#if comments}}
+	 	{{#each comments}}
+	 	 <input type = "hidden" value="{{@index}}: {{this}}">
+	 	<tr class="btn-danger"><td><b>COMMENT {{inc @index}}</b></td></tr>
+	 	{{#if comments_image_name}}
+	 	<tr><td></br><img style="height:80px;width:90px" src="{{http_path}}/uploads/{{comments_image_name}}" alt="Image Data!"></td></tr>
+	 	{{/if}}
+	 	{{#if data}}
+	 	<tr><td><textarea class="form-control note" value="" readonly>{{data}}</textarea></td></tr>
+	 	{{/if}}
+	 	<tr><td><h5 class="text-muted">Commented by <span style="color:#41B5D8;">{{comments_name}}</span></h5></td></tr>
+
+		{{#if ../replies}}
+		{{#each ../replies}}
+		{{#ifEquals ../_id comments_id}}
+		<tr class="btn-success reply_row"><td>Replies</td></tr>
+		{{#if image_response}}
+		<tr class="reply_row"><td><img style="height:80px;width:90px" src="{{http_path}}/uploads/{{image_response}}" name="image_comments" alt="Image Data!"></td></tr>
+		{{/if}}
+		    <tr class="reply_row"><td><textarea class="form-control comments db_update note" value="" readonly>{{reply}}</textarea></td></tr>
+				<tr class="reply_row"><td><h5 class="text-muted" style="margin-left: 59px;">Replied by <span style="color:#41B5D8;">{{name}}</span></h5></td></tr>
+    {{/ifEquals}}
+		{{/each}}
+		{{/if}}
+
+    <tr><td><hr/></td></tr>
+	 	{{/each}}
+	 	{{/if}}
+	 	{{/each}}
+
+	 </table>
+	 </div>
+
+				</form>
+			</div>
+    </div>
+  </div>
+ {{/if}}
+{{/each}}
+{{/if}}
+<!--
+<script id="character-template" type="text/x-handlebars-template">
+<tr><td><h4 class="text-muted">Commented By</h4><h5 style="color:#41B5D8;">\{{username}}</h5></br></td></tr>
+</script>
+-->
+</body>
+
+</html>

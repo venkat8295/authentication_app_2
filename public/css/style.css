@@ -1,0 +1,141 @@
+body {
+  padding-top: 0px;
+  padding-bottom: 40px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.page {
+  display: table;
+  width: 100%;
+}
+.page-content,
+.sidebar {
+  display: table-cell;
+}
+.sidebar {
+  width: 330px;
+}
+.blue,
+.green,
+.gold {
+  height: 50px;
+}
+
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: green;
+}
+.gold {
+  background-color: gold;
+}
+/*#controlContent*/
+.div_field
+{
+  overflow: auto;
+  height: 325px;
+}
+
+#loading {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: block;
+  opacity: 0.7;
+  background-color: #fff;
+  z-index: 99;
+  text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 520px;
+  z-index: 100;
+}
+
+textarea.note {
+	width:100%;
+	box-sizing:border-box;
+	/*direction:rtl;*/
+	display:block;
+	max-width:100%;
+	line-height:1.5;
+	padding:15px 15px 30px;
+	border-radius:3px;
+	border:1px solid #46B7D9;
+	font:13px Tahoma, cursive;
+	transition:box-shadow 0.5s ease;
+	box-shadow:0 4px 6px rgba(0,0,0,0.1);
+	font-smoothing:subpixel-antialiased;
+	background:linear-gradient(#FFFFFF, #EAEAEA);
+	background:-o-linear-gradient(#FFFFFF, #EAEAEA);
+	background:-ms-linear-gradient(#FFFFFF, #EAEAEA);
+	background:-moz-linear-gradient(#FFFFFF, #EAEAEA);
+	background:-webkit-linear-gradient(#FFFFFF, #EAEAEA);
+}
+
+td{
+  border: none !important;
+}
+
+hr {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  border: 0 !important;
+  border-top: 2px solid #ad0e0e !important;
+}
+
+.heading_comment
+{
+  color: #ad0e0e !important;
+}
+
+/*
+.reply
+{
+  margin-left: 135px !important;
+  margin-top: -10px !important;
+}*/
+/*
+.reply_row
+{
+  margin-left: 135px !important;
+  margin-top: -10px !important;
+}
+*/

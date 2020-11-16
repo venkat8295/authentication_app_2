@@ -1,0 +1,31 @@
+<form class="form-signin" id="profile_form" action="/users/profile" method="POST" enctype="multipart/form-data">
+  <h2 class="form-signin-heading">Profile Details</h2>
+
+<!--  <div class="form-control">
+  <label class="header">Profile Photo:</label><span class="picture_span"></span>
+  <input type="file" id="Picture" name="picture" class="form-control" required>
+</div>-->
+
+  <input type="hidden" id="username_auth" name="username_auth" class="form-control username_auth" value="{{username_auth}}"/>
+  <input type="hidden" id="email_auth" name="email_auth" class="form-control email_auth" value="{{email_auth}}"/>
+  <input type="hidden" id="user_id" name="user_id" class="form-control user_id" value="{{_id}}"/>
+{{#each items}}
+  <label for="profile_picture" class="sr-only">Profile Picture</label>
+  {{#if picture_name}}
+  <img style="height:200px;width: 200px;" class="form-control" src="{{http_path}}/profile/{{picture_name}}" alt="Image Data!">
+  {{/if}}
+  <input type="file" id="profile_picture" name="profile_picture" class="form-control" required autofocus>
+
+  <label for="dob" class="sr-only">Date Of Birth</label>
+  <input type="text" id="dob" name="dob" class="form-control" placeholder="Date Of Birth" value="{{dob}}" required>
+
+  <label for="Address" class="sr-only">Address</label>
+  <textarea id="address" name="address" rows="2" placeholder="Your Address" class="form-control address note" required>{{address}}</textarea>
+
+  <label for="mobile" class="sr-only">Mobile Number</label>
+  <input type="text" id="mobile" name="mobile" class="form-control" placeholder="Your Mobile Number" value="{{mobile}}" required>
+{{/each}}
+  <br/>
+
+  <button class="btn btn-lg btn-default btn-block" type="submit">Save</button>
+</form>
